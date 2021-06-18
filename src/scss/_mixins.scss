@@ -1,0 +1,58 @@
+@import "variables";
+
+@mixin button($color: green) {
+  height: 24px;
+  min-width: 24px;
+  padding: 3px;
+  text-align: center;
+  position: relative;
+  display: inline-block;
+  color: rgba(0, 0, 0, .7);
+  user-select: none;
+
+  & > i {
+    font-size: 20px;
+  }
+  &:active, &.active {
+    color: $color;
+  }
+  &:hover {
+    background: #eee;
+    cursor: pointer;
+  }
+}
+@mixin flex-c-c() {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+@mixin cell() {
+  min-width: 40px;
+  width: $cell-w;
+  border-right: $border;
+  border-bottom: $border;
+  white-space: nowrap;
+  outline: none;
+}
+@mixin flex-c-sb {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+@mixin flex-c {
+  display: flex;
+  align-items: center;
+}
+@mixin header() {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  padding: 0 4px;
+  @include flex-c;
+}
+@mixin clear-list() {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
