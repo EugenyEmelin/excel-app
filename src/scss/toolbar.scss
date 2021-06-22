@@ -13,6 +13,6 @@
   display: flex;
 
   .button {
-    @include button($blue);
+    @include button($primary-blue);
   }
 }

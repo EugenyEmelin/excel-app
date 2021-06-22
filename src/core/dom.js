@@ -38,6 +38,24 @@ class Dom {
 		}
 		return this
 	}
+	get dataset() {
+		return this.$el.dataset
+	}
+	closest(selector) {
+		return dom(this.$el.closest(selector))
+	}
+	getCoordinates() {
+		return this.$el.getBoundingClientRect()
+	}
+	findAll(selector) {
+		return this.$el.querySelectorAll(selector)
+	}
+	css(styles = {}) {
+		const stylesArr = Object.entries(styles)
+		stylesArr.forEach(([attr, style]) => {
+			this.$el.style[attr] = style
+		})
+	}
 }
 
 export function dom(selector) {

@@ -56,3 +56,33 @@
   margin: 0;
   padding: 0;
 }
+
+@mixin resize-item($table-element) {
+  position: absolute;
+  z-index: 1000;
+  opacity: 0;
+  background: $primary-blue;
+
+  @if $table-element == 'column' {
+    top: 0;
+    bottom: 0;
+    width: $resize-item-thickness;
+    right: $centered-thickness;
+  }
+  @if $table-element == 'row' {
+    right: 0;
+    left: 0;
+    height: $resize-item-thickness;
+    bottom: $centered-thickness;
+  }
+
+  &:hover {
+    opacity: 1!important;
+    @if $table-element == 'column' {
+      cursor: col-resize;
+    }
+    @if $table-element == 'row' {
+      cursor: row-resize;
+    }
+  }
+}

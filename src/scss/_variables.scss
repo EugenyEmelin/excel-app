@@ -6,6 +6,8 @@ $formula-h: 24px;
 $table-row-h: 24px;
 $cell-w: 120px;
 $dashboard-header-h: 64px;
+$resize-item-thickness: 4px;
+$centered-thickness: -($resize-item-thickness / 2);
 
 // Fonts
 $default-font-size: 13px;
@@ -16,7 +18,7 @@ $border-color: #c0c0c0;
 
 // Primary colors
 $light: #f8f9fa;
-$blue: #4379ff;
+$primary-blue: #497cfc;
 $red: #fc4f4f;
 $black: #161616;
 $dark-gray: #4e4e4e;

@@ -17,6 +17,7 @@
   }
   .row-info {
     @include flex-c-c;
+    position: relative;
     min-width: $info-cell-w;
     height: 100%;
     border-top: none;
@@ -24,6 +25,7 @@
     border-left: $border;
     border-right: $border;
     background: $light;
+    user-select: none;
   }
   .row-data {
     display: flex;
@@ -33,6 +35,8 @@
     @include flex-c-c;
     @include cell;
     background: $light;
+    position: relative;
+    user-select: none;
   }
   .cell {
     @include cell;
@@ -45,5 +49,12 @@
       z-index: 2;
       border-radius: 1px;
     }
+  }
+
+  .col-resize {
+    @include resize-item('column');
+  }
+  .row-resize {
+    @include resize-item('row');
   }
 }
