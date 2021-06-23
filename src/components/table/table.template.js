@@ -2,10 +2,18 @@ const CODES = {
 	A: 65,
 	Z: 90
 }
-function toCell(_, colIndex) {
-	return `
-		<div class="cell" contenteditable data-col-index="${colIndex}"></div>
-	`
+function toCell(rowIndex) {
+	return function(_, colIndex) {
+		return `
+			<div 
+				class="cell" 
+				contenteditable 
+				data-col-index="${colIndex}"
+				data-cell-id="${rowIndex}:${colIndex}"
+				data-type="cell"
+			></div>
+		`
+	}
 }
 function toColumn(col, colIndex) {
 	return `
@@ -46,13 +54,13 @@ export function createTable(rowsCount = 45) {
 
 	rows.push(createRow(null, cols))
 
-	for (let i = 0; i < rowsCount; i++) {
+	for (let row = 0; row < rowsCount; row++) {
 		const cells = new Array(colsCount)
 			.fill('')
-			.map(toCell)
+			.map(toCell(row))
 			.join('')
 
-		rows.push(createRow(i + 1, cells))
+		rows.push(createRow(row + 1, cells))
 	}
 	return rows.join('')
 }
