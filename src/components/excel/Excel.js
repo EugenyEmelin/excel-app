@@ -1,17 +1,21 @@
-import { dom } from '@core/dom'
+import { $ } from '@core/dom'
+import { Emitter } from '@core/Emitter'
 
 export class Excel {
 	constructor(selector, options) {
-		this.$el = dom(selector)
+		this.$el = $(selector)
 		this.selector = selector
 		this.components = options.components || []
+		this.emitter = new Emitter()
 	}
 	getRoot() {
-		const $root = dom.create('div', 'excel')
+		const $root = $.create('div', 'excel')
+		const componentOptions = {
+			emitter: this.emitter
+		}
 		this.components = this.components.map(Component => {
-			const $componentEl = dom.create('div', Component.className)
-			const component = new Component($componentEl)
-			// console.log('$el', $componentEl)
+			const $componentEl = $.create('div', Component.className)
+			const component = new Component($componentEl, componentOptions)
 			$componentEl.html(component.toHTML())
 			$root.append($componentEl)
 			return component
@@ -24,8 +28,10 @@ export class Excel {
 		}
 		this.$el.append(this.getRoot())
 		this.components.forEach(component => {
-			// eslint-disable-next-line no-prototype-builtins
 			component.init()
 		})
+	}
+	destroy() {
+		this.components.forEach((component => component.destroy()))
 	}
 }

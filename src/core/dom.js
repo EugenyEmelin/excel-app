@@ -42,13 +42,49 @@ class Dom {
 		return this.$el.dataset
 	}
 	closest(selector) {
-		return dom(this.$el.closest(selector))
+		return $(this.$el.closest(selector))
 	}
 	getCoordinates() {
 		return this.$el.getBoundingClientRect()
 	}
+	addClass(className) {
+		this.$el.classList.add(className)
+		return this
+	}
+	removeClass(className) {
+		this.$el.classList.remove(className)
+		return this
+	}
+	id(parse) {
+		if (parse) {
+			const parsed = this.id().split(':')
+			return {
+				row: +parsed[0],
+				col: +parsed[1]
+			}
+		}
+		return this.dataset.cellId
+	}
+	findOne(selector) {
+		return $(this.$el.querySelector(selector))
+	}
 	findAll(selector) {
 		return this.$el.querySelectorAll(selector)
+	}
+	focus() {
+		this.$el.focus()
+		return this
+	}
+	text(text) {
+		if (!this.$el) return
+		if (typeof text === 'string') {
+			this.$el.textContent = text
+			return this
+		}
+		if (this.$el.tagName.toLowerCase() === 'input') {
+			return this.$el.value.trim()
+		}
+		return this.$el.textContent.trim()
 	}
 	css(styles = {}) {
 		const stylesArr = Object.entries(styles)
@@ -58,14 +94,14 @@ class Dom {
 	}
 }
 
-export function dom(selector) {
+export function $(selector) {
 	return new Dom(selector)
 }
 
-dom.create = (tagName, classes = '') => {
+$.create = (tagName, classes = '') => {
 	const el = document.createElement(tagName)
 	if (classes.length > 0) {
 		el.classList.add(classes)
 	}
-	return dom(el)
+	return $(el)
 }
