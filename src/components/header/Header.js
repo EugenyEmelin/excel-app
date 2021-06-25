@@ -1,4 +1,6 @@
 import { ExcelComponent } from '@core/ExcelComponent'
+import { $ } from '@core/dom'
+import { changeTitle } from '@/store/actions'
 
 export class Header extends ExcelComponent {
 	static className = 'excel__header'
@@ -6,12 +8,14 @@ export class Header extends ExcelComponent {
 	constructor($root, options) {
 		super($root, {
 			name: 'Header',
+			listeners: ['input'],
 			...options
 		})
 	}
 	toHTML() {
+		const title = this.store.getState().title || 'Новая таблица'
 		return `
-			<input type="text" class="input" value="Новая таблица">
+			<input type="text" class="input" value="${title}">
 	    <div class="actions">
 	      <div class="button">
 	        <i class="material-icons">delete</i>
@@ -21,5 +25,9 @@ export class Header extends ExcelComponent {
 	      </div>
 	    </div>
 		`
+	}
+	onInput(event) {
+		const $target = $(event.target)
+		this.$dispatch(changeTitle($target.text()))
 	}
 }

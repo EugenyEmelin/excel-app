@@ -6,11 +6,14 @@ export class ExcelComponent extends DomListener {
 		this.name = options.name || ''
 		this.emitter = options.emitter
 		this.unsubscribers = []
+		this.subscribe = options.subscribe || []
+		this.store = options.store
 
 		this.prepare()
 	}
 	// Настройка до инициализации
 	prepare() {}
+
 	toHTML() {
 		return ''
 	}
@@ -22,6 +25,15 @@ export class ExcelComponent extends DomListener {
 	$on(event, fn) {
 		const unsub = this.emitter.subscribe(event, fn)
 		this.unsubscribers.push(unsub)
+	}
+	isWatching(key) {
+		return this.subscribe.includes(key)
+	}
+	$dispatch(action) {
+		this.store.dispatch(action)
+	}
+	storeChanged() {
+
 	}
 	init() {
 		this.initDOMListeners()

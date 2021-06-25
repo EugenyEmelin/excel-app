@@ -76,21 +76,33 @@ class Dom {
 		return this
 	}
 	text(text) {
-		if (!this.$el) return
-		if (typeof text === 'string') {
+		if (typeof text !== 'undefined') {
 			this.$el.textContent = text
 			return this
 		}
 		if (this.$el.tagName.toLowerCase() === 'input') {
 			return this.$el.value.trim()
 		}
-		return this.$el.textContent.trim()
+		return this.$el.textContent.trim() || ''
+	}
+	attr(name, value) {
+		if (value !== undefined) {
+			this.$el.setAttribute(name, value)
+			return this
+		}
+		return this.$el.getAttribute(name)
 	}
 	css(styles = {}) {
 		const stylesArr = Object.entries(styles)
 		stylesArr.forEach(([attr, style]) => {
 			this.$el.style[attr] = style
 		})
+	}
+	getStyles(styles = []) {
+		return styles.reduce((result, style) => {
+			result[style] = this.$el.style[style]
+			return result
+		}, {})
 	}
 }
 
